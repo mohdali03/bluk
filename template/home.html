@@ -1,0 +1,44 @@
+{% extends "layout.html" %} {% block content %}
+
+<table class="table">
+  <thead>
+    <table class="table">
+      <thead>
+        <tr style="text-align: center;">
+          <th scope="col">Name</th>
+          <th scope="col">Roll No</th>
+          <th scope="col">Course</th>
+          <th scope="col">std</th>
+          {% if session.get("user.id") %}
+          <th scope="col" >edit</th>
+          <th scope="col">delete</th>
+          {% endif %}
+          <!-- <th></th> -->
+        </tr>
+      </thead>
+      <tbody>
+        {% for stud in student %}
+        <tr style="text-align: center;">
+          <td>{{ stud.name}}</td>
+          <td>{{ stud.rollNo }}</td>
+          <td>{{ stud.course }}</td>
+          <td>{{ stud.std }}</td>
+          {% if session.get("user.id") %}
+          <td> <a class="btn btn-secondary btn-sm"
+              href="/updatestudent/{{stud.id}}">Update</a> </td>
+          <td> <a class="btn btn-danger btn-sm"
+              href="/deletestudent/{{stud.id}}">Delete</a> </td>
+          {% endif %}
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+
+
+
+</table>
+
+
+
+
+{% endblock %}

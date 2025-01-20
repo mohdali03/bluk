@@ -1,0 +1,42 @@
+{% extends 'layout.html' %}
+{% block content %}
+<h2>{{info}} a Student </h2>
+
+{% if endpoint == 'updatestudent' %}
+<form id="studentForm" action="/{{ endpoint }}/{{ student.id }}" method="POST">
+{% else %}
+<form id="studentForm" action="/addstudent" method="POST">
+{% endif %}
+    <input type="hidden" id="studentId" name="studentId">
+    <div class="mb-3">
+        <label for="name" class="form-label">Name</label>
+        <input type="text" class="form-control" id="name" name="name" required value="{{ student.name | default('')}}">
+    </div>
+    <div class="mb-3">
+        <label for="rollNo" class="form-label">Roll No</label>
+        <input type="text" class="form-control" id="rollNo" name="rollNo" value="{{ student.rollNo | default('')}}"required>
+    </div>
+    <div class="mb-3">
+        <label for="std" class="form-label">Standard</label>
+        <input type="text" class="form-control" id="std" name="std" value="{{ student.std | default('')}}" required>
+    </div>
+    <div class="mb-3">
+        <label for="course" class="form-label">Course</label>
+        <input type="text" class="form-control" id="course" name="course" value="{{ student.course | default('')}}"required>
+    </div>
+    <button type="submit" class="btn btn-primary" id="submitButton">{{ endpoint }}</button>
+</form>
+
+<br>
+{% if endpoint == "addstudent" %}
+<h2>Upload File</h2>
+<form action="/fileupload" method="POST" enctype="multipart/form-data" class="mt-4">
+    <div class="form-group">
+        <label for="file">File Upload</label>
+        <input type="file" name="file" class="form-control-file mt-2" required>
+    </div>
+    <button type="submit" class="btn btn-primary mt-4">Upload</button>
+</form>
+{% endif %}
+
+{% endblock %}
